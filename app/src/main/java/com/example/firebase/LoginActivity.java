@@ -42,17 +42,18 @@ public class LoginActivity extends AppCompatActivity {
             }
             List<AuthUI.IdpConfig> providers = Arrays.asList(
                     new AuthUI.IdpConfig.EmailBuilder().build(),
-                    new AuthUI.IdpConfig.GoogleBuilder().build());
+                    new AuthUI.IdpConfig.GoogleBuilder().build(),
+                    new AuthUI.IdpConfig.PhoneBuilder().build());
+
 
             startActivityForResult(
                     AuthUI.getInstance().createSignInIntentBuilder()
+                            .setLogo(R.mipmap.ic_launcher)
+                            .setTheme(R.style.FirebaseUITema)
                             .setAvailableProviders(providers)
                             .setIsSmartLockEnabled(false)
                             .build(),
                     RC_SIGN_IN);}
-
-
-
     }
 
 
