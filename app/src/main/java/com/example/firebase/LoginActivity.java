@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void login() {
         FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
-        if (usuario != null) {
+        if (usuario != null && usuario.isEmailVerified()) {
             Toast.makeText(this, "inicia sesión: " + usuario.getDisplayName() +
                     " - " + usuario.getEmail(), Toast.LENGTH_LONG).show();
             Intent i = new Intent(this, MainActivity.class);
@@ -36,16 +36,23 @@ public class LoginActivity extends AppCompatActivity {
                     | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
         } else {
+            if (usuario!=null && !usuario.isEmailVerified()) {
+                Toast.makeText(this, "Mira tu correo", Toast.LENGTH_LONG).show();
+                usuario.sendEmailVerification();
+            }
             List<AuthUI.IdpConfig> providers = Arrays.asList(
                     new AuthUI.IdpConfig.EmailBuilder().build(),
                     new AuthUI.IdpConfig.GoogleBuilder().build());
+
             startActivityForResult(
                     AuthUI.getInstance().createSignInIntentBuilder()
                             .setAvailableProviders(providers)
                             .setIsSmartLockEnabled(false)
                             .build(),
-                    RC_SIGN_IN);
-        }
+                    RC_SIGN_IN);}
+
+
+
     }
 
 
