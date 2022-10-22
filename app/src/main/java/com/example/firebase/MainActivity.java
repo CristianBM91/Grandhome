@@ -1,5 +1,6 @@
 package com.example.firebase;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.firebase.databinding.ContentMainBinding;
@@ -15,7 +16,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 //commit no 2
 
-import com.example.firebase.databinding.ContentMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_scrolling, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -61,6 +61,11 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+        if (id == R.id.menu_usuario) {
+            Intent intent = new Intent(this, UsuarioActivity.class);
+            startActivity(intent);
+        }
+
         return super.onOptionsItemSelected(item);
     }
 }
